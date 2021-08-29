@@ -1,0 +1,23 @@
+name: tsla_env
+channels:
+    - conda-forge
+    - bioconda
+    - defaults
+dependencies:
+    - streamlit
+    - pandas
+    - numpy
+    - matplotlib
+    - seaborn
+    - json
+    - base64
+    - zipfile
+    - PIL
+    - altair
+    - openpyxl
+    - jupyter
+    - ipykernel
+    - pip:
+        - loguru
+
+
