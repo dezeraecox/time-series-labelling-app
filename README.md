@@ -11,7 +11,7 @@ This repository contains source code for TSLA - the time series labelling app. T
 
 To explore the functionality of the platform, an example dataset is provided [here](utilities/example_data.csv).
 
-There are two simple ways to use this app on your own data; either entirely online via [Heroku](https://tsla.herokuapp.com/) (*recommended*) or locally on your machine following the installation instructions below.
+There are two simple ways to use this app on your own data; either entirely online via [Heroku](https://time-series-labelling-app.herokuapp.com/) (*recommended*) or locally on your machine following the installation instructions below.
 
 If you have an issue with the app, would like additional information or have general feedback, get in touch via the [contact form](https://wdile0pdkr7.typeform.com/to/vLqQWI7k) or raise an issue in this repository. Thanks for stopping by!
 
