@@ -124,19 +124,19 @@ def upload_dataset():
 
 def validate_data(data):
 
-    data_preview = st.beta_expander("Preview uploaded dataset", expanded=False)
+    data_preview = st.expander("Preview uploaded dataset", expanded=False)
     with data_preview:       
         st.dataframe(data)
 
-    summary = st.beta_expander("Dataset Summary", expanded=True)
+    summary = st.expander("Dataset Summary", expanded=True)
     with summary:
         # preview info
         st.markdown(f"Total number of samples: {data.shape[0]}")
         st.markdown(f"Number of timepoints: {len([col for col in data.columns.tolist() if col not in ['sample_name', 'label']])}")
 
     
-    labels = st.beta_expander("Labels", expanded=True)
-    col1, col2 = st.beta_columns(2)
+    labels = st.expander("Labels", expanded=True)
+    col1, col2 = st.columns(2)
     with labels:
         if 'label' in data.columns.tolist():
             # preview task info
@@ -150,9 +150,9 @@ def validate_data(data):
             state.num_labels = None
             st.markdown(f"No label column detected. If you expect a label column to be detected, ensure the relevant column header is 'label'. Otherwise, labels will be specified in the next step.")
 
-    download_options = st.beta_expander("Download summary", expanded=False)
+    download_options = st.expander("Download summary", expanded=False)
     with download_options:
-        col1, col2 = st.beta_columns(2)
+        col1, col2 = st.columns(2)
         if col1.button("Download compiled dataset"):
             tmp_download_link = download_link(df_to_excel_bytes(data), 'compiled_data.xlsx', 'Click here to download!')
             col1.markdown(tmp_download_link, unsafe_allow_html=True)
@@ -196,7 +196,7 @@ def create_labels():
         if len(set(labels)) != len(labels):
             st.markdown('Non-unique labels identified. Please ensure all labels are unique!')
             return
-        col1, col2 = st.beta_columns(2)
+        col1, col2 = st.columns(2)
         if col2.button('Submit labels'):
             state.labels_chosen = True
             state.labels = labels
@@ -222,7 +222,7 @@ def prepare_labels():
         else:
             st.markdown("These labels are compatible with the classification process. If you would like to create new labels anyway, you can do so using the 'Create new labels' button. Otherwise, you may submit your labels.")
 
-        col1, col2 = st.beta_columns(2)
+        col1, col2 = st.columns(2)
         if col1.button('Create new labels'):
             state.labels = None
             state.num_labels = None
@@ -264,7 +264,7 @@ def label_series(data):
     invalid_labels = []
     for sample_name, df in data.groupby('sample_name'):
         st.empty()
-        col1, col2 = st.beta_columns(2)
+        col1, col2 = st.columns(2)
 
         # # ----Plot individual timeserie-----
 
@@ -285,7 +285,7 @@ def label_series(data):
         else:
             state.class_labels[sample_name] = selected_labels
 
-    col1, col2, col3 = st.beta_columns(3)
+    col1, col2, col3 = st.columns(3)
     if state.current_chunk > 0:
         if col1.button('Previous'):
             state.current_chunk += -1
@@ -377,7 +377,7 @@ def run_introduction():
     ## Instructions
 
     """)
-    getting_started = st.beta_expander("Getting started", expanded=False)
+    getting_started = st.expander("Getting started", expanded=False)
     with getting_started:
         st.markdown(
         f"""
@@ -391,14 +391,14 @@ def run_introduction():
         
         """, unsafe_allow_html=True)
 
-    data_instructions = st.beta_expander("Prepare data", expanded=False)
+    data_instructions = st.expander("Prepare data", expanded=False)
     with data_instructions:
         st.markdown(
         f"""
         After preparing your dataset, proceed to the "Process data" functionality using the left navigational pane. This function will guide you through processing the prepared dataset. Once satisfied with the uploaded data, click continue to finalise the data validation process. Optionally, you may download a clean and processed version of the dataset which can be reuploaded to repeat any subsequent analysis steps.
         """, unsafe_allow_html=True)
 
-    label_instructions = st.beta_expander("Prepare labels", expanded=False)
+    label_instructions = st.expander("Prepare labels", expanded=False)
     with label_instructions:
         st.markdown(
         f"""
@@ -407,7 +407,7 @@ def run_introduction():
         Remember to include at least 2 (or more) unique labels. Ideally, numeric or short text labels work best.
         """, unsafe_allow_html=True)
 
-    classify_instructions = st.beta_expander("Classify data", expanded=False)
+    classify_instructions = st.expander("Classify data", expanded=False)
     with classify_instructions:
         st.markdown(
         f"""
@@ -416,14 +416,14 @@ def run_introduction():
         Once all datasets have been annotated, then a summary of the average value for each of the labels is shown. From here you have the option to revisit any of the samples using the 'Previous' button. 
         """, unsafe_allow_html=True)
     
-    download_instructions = st.beta_expander("Summary and data download", expanded=False)
+    download_instructions = st.expander("Summary and data download", expanded=False)
     with download_instructions:
         st.markdown(
         f"""
         Finally, you may proceed to the summary page, where you will find some brief dataset statistics and the option to display a plot for individual datasets coloured according to label type. From here, you can then download the final annotated dataset for use in later analyses. The download format mirrors that of the upload, containing a *sample_name* column, a *label* column and the remaining timepoint columns.
         """, unsafe_allow_html=True)
 
-    troubleshooting = st.beta_expander("Troubleshooting", expanded=False)
+    troubleshooting = st.expander("Troubleshooting", expanded=False)
     with troubleshooting:
         st.markdown(
         f"""
@@ -454,7 +454,7 @@ def run_labelling():
     instructions = st.empty()
     selection = st.empty()
     plot = st.empty()
-    col1, col2, col3 = st.beta_columns(3)
+    col1, col2, col3 = st.columns(3)
 
     n = 10
     chunked_samples = [state.data_prepared['sample_name'].unique().tolist()[i:i+n] for i in range(0,len(state.data_prepared['sample_name'].unique().tolist()),n)]
@@ -491,28 +491,28 @@ def run_summary():
     fig = plot_label_summary()
     st.pyplot(fig)
 
-    summary_stats = st.beta_expander("Summary stats", expanded=False)
+    summary_stats = st.expander("Summary stats", expanded=False)
     with summary_stats:
         st.markdown(f"Total number of annotated datasets: {len(state.data_labelled['sample_name'].unique())}")
         st.markdown("This included:")
-        col1, col2 = st.beta_columns([1, 5])
+        col1, col2 = st.columns([1, 5])
         for label, df in state.data_labelled.groupby('label'):
             col2.markdown(f"{len(df['sample_name'].unique())} samples labelled with {label}")
 
-    interactive_visuals = st.beta_expander("Visualise individual labels", expanded=False)
+    interactive_visuals = st.expander("Visualise individual labels", expanded=False)
     with interactive_visuals:
         state.sample_names = st.multiselect('Please select datasets to visualise their label status', options=state.data_labelled['sample_name'].unique().tolist())
         if state.sample_names != [None]:
             plot_interactive_labels(state.sample_names, label_col='label')
 
 
-    download_options = st.beta_expander("Download", expanded=False)
+    download_options = st.expander("Download", expanded=False)
     with download_options:
         data = pd.pivot(state.data_labelled, index=['sample_name', 'label'], columns=['time'], values=['value'])
         data.columns = data.columns.droplevel(0)
         data.reset_index(inplace=True)
         st.dataframe(data)
-        col1, col2 = st.beta_columns(2)
+        col1, col2 = st.columns(2)
         if col1.button("Download compiled dataset"):
             tmp_download_link = download_link(data, 'labelled_data.csv', 'Click here to download!')
             col1.markdown(tmp_download_link, unsafe_allow_html=True)
@@ -559,7 +559,7 @@ def main():
 
 
     if app_mode == 'Prepare dataset':
-        col1, col2 = st.beta_columns([1, 5])
+        col1, col2 = st.columns([1, 5])
         col1.image(icon)
         col2.markdown("# Time Series Labelling App")
         if type(state.dataset) == pd.DataFrame:
@@ -575,7 +575,7 @@ def main():
 
 
     if app_mode == 'Prepare labels':
-        col1, col2 = st.beta_columns([1, 5])
+        col1, col2 = st.columns([1, 5])
         col1.image(icon)
         col2.markdown("# Time Series Labelling App")
         if state.data_processed and not state.labels_chosen:
@@ -589,7 +589,7 @@ def main():
 
 
     elif app_mode == "Classify training data":
-        col1, col2 = st.beta_columns([1, 5])
+        col1, col2 = st.columns([1, 5])
         col1.image(icon)
         col2.markdown("# Time Series Labelling App")
         if state.data_processed is not None and state.labels_chosen is not None:
@@ -604,7 +604,7 @@ def main():
             st.markdown("To begin, you must validate your prepared dataset. \n Please return to the 'Prepare dataset' pane.")
 
     elif app_mode == "Summary":
-        col1, col2 = st.beta_columns([1, 5])
+        col1, col2 = st.columns([1, 5])
         col1.image(icon)
         col2.markdown("# Time Series Labelling App")
         if state.submit_labels is not None:
