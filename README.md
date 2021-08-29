@@ -33,6 +33,7 @@ conda activate tsla_env
 Navigate to the repository, then start the app:
 
 ```
+cd ....../time-series-labelling-app/
 streamlit run app.py
 ```
 
