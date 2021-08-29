@@ -9,7 +9,6 @@ dependencies:
     - numpy
     - matplotlib
     - seaborn
-    - zipfile
     - pillow
     - zipp
     - altair
