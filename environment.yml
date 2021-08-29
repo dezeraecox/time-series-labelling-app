@@ -12,12 +12,13 @@ dependencies:
     - json
     - base64
     - zipfile
-    - PIL
+    - pillow
+    - zipp
     - altair
     - openpyxl
     - jupyter
     - ipykernel
+    - xlrd
+    - xlsxwriter
     - pip:
         - loguru
-
-
