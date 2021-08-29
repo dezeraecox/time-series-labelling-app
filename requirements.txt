@@ -1,0 +1,17 @@
+streamlit
+pandas
+numpy
+matplotlib
+seaborn
+json
+base64
+zipfile
+pillow
+zipp
+altair
+openpyxl
+jupyter
+ipykernel
+xlrd
+xlsxwriter
+loguru
