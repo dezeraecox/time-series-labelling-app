@@ -3,7 +3,6 @@ pandas
 numpy
 matplotlib
 seaborn
-json
 base64
 zipfile
 pillow
